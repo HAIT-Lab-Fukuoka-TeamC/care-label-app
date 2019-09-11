@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <title>Dog or Cat</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<form id="uploadForm"  action="/predict" method="POST"  enctype="multipart/form-data">
+  <input type="file" name="file"><br>
+  <input id="btn1" type="submit" accept="image/*;device=camera" name="picfile" value="アップロード">
+</form>
+<div id="result">
+  {{ name }}
+</div>
+</body>
+</html>
