@@ -72,6 +72,9 @@ def predict():
             prelabel = np.argmax(prd, axis=1)
             probability = max(prd[0])
 
+            other_labels = np.argsort(prd)[0][::-1][:3]
+            other_pros = [prd[0][other_labels[0]], prd[0][other_labels[1]], prd[0][other_labels[2]]]
+
             names = ['95',
                     '50',
                     'hanging_dry',
@@ -159,7 +162,7 @@ def predict():
 
             name = names[prelabel[0]]
             pre_img_url = '/seeds/' + name + '.png'
-            pre_detail = details[prelabel]
+            pre_detail = details[prelabel[0]]
 
             return render_template('index.html',name=name, img_url=img_url, probability=probability, pre_img_url=pre_img_url, pre_detail=pre_detail )
     else:
