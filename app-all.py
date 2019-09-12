@@ -19,6 +19,8 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 app = Flask(__name__)
 UPLOAD_FOLDER = './uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+SEEDS_FOLDER = './seeds'
+app.config['SEEDS_FOLDER'] = SEEDS_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
 
 
@@ -47,10 +49,10 @@ def predict():
 
 
             # モデルの読み込み
-            model = model_from_json(open('and_1.json', 'r').read())
+            model = model_from_json(open('and_small.json', 'r').read())
 
             # 重みの読み込み
-            model.load_weights('and_1_weight.hdf5')
+            model.load_weights('and_small_weight.hdf5')
 
 
             image_size = 50
@@ -121,7 +123,7 @@ def predict():
             # elif prelabel == 3:
             #     name = "not_bleachable"
 
-            name = names[prelabel]
+            name = names[prelabel[0]]
             pre_img_url = '/seeds/' + name + '.png'
 
             return render_template('index.html',name=name, img_url=img_url, probability=probability, pre_img_url=pre_img_url )
@@ -134,6 +136,10 @@ def predict():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/seeds/<filename>')
+def seed_file(filename):
+    return send_from_directory(app.config['SEEDS_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000)

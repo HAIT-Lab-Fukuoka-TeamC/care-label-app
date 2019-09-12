@@ -2,48 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab3bbde9-6d22-40be-b490-b2d38e2a22b5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/details.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_hang.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_hira.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_kagehang.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_kagehira.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_kagewethang.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_kagewethira.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_wethang.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dry_wethira.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryclean_f.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryclean_f_weak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryclean_no.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryclean_p.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryclean_p_weak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryer_high.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryer_low.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/dryer_no.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/iron_110.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/iron_150.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/iron_200.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/iron_no.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_30.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_30_veryweak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_30_weak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_40.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_40_veryweak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_40_weak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_50.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_50_weak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_60.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_60_weak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_75.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_95.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_hand.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wash_no.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wetclean_no.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wetclean_ok.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wetclean_veryweak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/wetclean_weak.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/white_nocl.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/seeds/white_ok.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-all.py" beforeDir="false" afterPath="$PROJECT_DIR$/app-all.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +65,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1568275214747</updated>
-      <workItem from="1568275223222" duration="3370000" />
+      <workItem from="1568275223222" duration="4334000" />
     </task>
     <servers />
   </component>
