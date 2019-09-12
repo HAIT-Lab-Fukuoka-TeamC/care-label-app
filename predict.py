@@ -22,7 +22,8 @@ for i, f in enumerate(files):
             break
 
     if flag == 0:
-        dir_name = f.split('\\')[-1]
+        dir_name = f.split('/')[-1]
+        # dir_name = f.split('\\')[-1] ←windowsの場合
         print('dir_name : ' + dir_name)
         folder.append(dir_name)
 
@@ -86,7 +87,6 @@ history = model.fit(X_train, y_train, epochs=2, validation_data=(X_test, y_test)
 
 #評価 & 評価結果出力
 print(model.evaluate(X_test, y_test))
-# [0.012974890864793144, 0.9910388415774013]
 
 # モデルの保存
 open('and_all.json',"w").write(model.to_json())
