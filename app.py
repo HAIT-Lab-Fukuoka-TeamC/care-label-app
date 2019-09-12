@@ -42,8 +42,6 @@ def predict():
             img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             img_url = '/uploads/' + filename
 
-
-
             graph = tf.get_default_graph()
             backend.clear_session() # 2回以上連続してpredictするために必要な処理
 
@@ -91,6 +89,10 @@ def predict():
         print("get　request")
 
     return render_template('index.html')
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000)
