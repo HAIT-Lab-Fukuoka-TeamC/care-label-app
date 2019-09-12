@@ -1,17 +1,103 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <title>Dog or Cat</title>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>洗濯表示しらべくん</title>
+    <style type="text/css">
+        .imagePreview {
+            width: 30%;
+            height: auto;
+            background-position: center center;
+            background-size: cover;
+            -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, .3);
+            display: inline-block;
+        }
+    </style>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+        $(function(){
+          $('#file').change(function(e){
+            //ファイルオブジェクトを取得する
+            var file = e.target.files[0];
+            var reader = new FileReader();
+
+            //画像でない場合は処理終了
+            if(file.type.indexOf("image") < 0){
+              alert("画像ファイルを指定してください。");
+              return false;
+            }
+
+            //アップロードした画像を設定する
+            reader.onload = (function(file){
+              return function(e){
+                $("#img1").attr("src", e.target.result);
+                $("#img1").attr("title", file.name);
+              };
+            })(file);
+            reader.readAsDataURL(file);
+
+          });
+        });
+    </script>
 </head>
 <body>
 
-<form id="uploadForm"  action="/predict" method="POST"  enctype="multipart/form-data">
-  <input type="file" name="file"><br>
-  <input id="btn1" type="submit" accept="image/*;device=camera" name="picfile" value="アップロード">
-</form>
-<div id="result">
-  {{ name }}
-</div>
+    <div class="container">
+
+        <h1>洗濯表示しらべくん</h1>
+        <form id="uploadForm"  action="/predict" method="POST"  enctype="multipart/form-data">
+            <input type="file" name="file" id="file"><br>
+            <input id="btn1" type="submit" accept="image/*;device=camera" name="picfile" value="アップロード">
+        </form>
+
+        <img id="img1" style="width:300px;height:300px;" />
+
+        {% if img_url %}
+            <div id="result">
+                <h2>結果</h2>
+                <div>
+                    アップロードされた画像<br>
+                      <p><img src="{{ img_url }}"></p>
+                </div>
+                <div>
+                    一番予想
+                    <p><img src="{{ pre1_img_url }}"></img><p>
+                    <h3>{{ pre1_detail }}</h3>
+                    確率
+                    {{ pre1_pro }}
+                </div>
+                <hr>
+                <div>
+                    二番予想
+                    <p><img src="{{ pre2_img_url }}"></img><p>
+                    <h3>{{ pre2_detail }}</h3>
+                    確率
+                    {{ pre2_pro }}
+                </div>
+                <hr>
+                <div>
+                    三番予想
+                    <p><img src="{{ pre3_img_url }}"></img><p>
+                    <h3>{{ pre3_detail }}</h3>
+                    確率
+                    {{ pre3_pro }}
+                </div>
+
+
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>

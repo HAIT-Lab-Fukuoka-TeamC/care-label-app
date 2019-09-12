@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, jsonify, render_template
+from flask import Flask, redirect, request, jsonify, render_template, url_for, send_from_directory, session
 from keras import models
 from PIL import Image
 from keras.models import load_model
@@ -11,11 +11,19 @@ import sys, os, io
 import glob
 import tensorflow as tf
 from keras.models import model_from_json
+from werkzeug import secure_filename
 
 # IOError: image file is truncated (0 bytes not processed)回避のため
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 app = Flask(__name__)
+UPLOAD_FOLDER = './uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+SEEDS_FOLDER = './seeds'
+app.config['SEEDS_FOLDER'] = SEEDS_FOLDER
+app.config['SECRET_KEY'] = os.urandom(24)
+
+
 CORS(app)
 
 # http://127.0.0.1:5000/にアクセスしたら、一番最初に読み込まれるページ
@@ -32,6 +40,10 @@ def predict():
             print("ファイルがありません")
         else:
             img = request.files["file"]
+            filename = secure_filename(img.filename)
+            img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            img_url = '/uploads/' + filename
+
             graph = tf.get_default_graph()
             backend.clear_session() # 2回以上連続してpredictするために必要な処理
 
@@ -58,27 +70,39 @@ def predict():
             prd = model.predict(X)
             # 配列の最大要素のインデックスを返しprelabelに代入します
             prelabel = np.argmax(prd, axis=1)
-            # 0の場合、犬を変数nameに代入します。
-            if prelabel == 0:
-                print(">>> 40_weak")
-                name = "40_weak"
-            # 1の場合、猫を変数nameに代入します。
-            elif prelabel == 1:
-                print(">>> donot_tumble_dry")
-                name = "donot_tumble_dry"
-            elif prelabel == 2:
-                print(">>> ironing_upto150")
-                name = "ironing_upto150"
-            elif prelabel == 3:
-                print(">>> not_bleachable")
-                name = "not_bleachable"
+            probability = max(prd[0])
 
-            return render_template('index.html',name=name)
+            if prelabel == 0:
+                name = "40_weak"
+                pre_img_url = "/seeds/wash_40.png"
+                pre_detail = '水温40℃を限度に、洗濯機で非常に弱い洗濯ができます。'
+            elif prelabel == 1:
+                name = "donot_tumble_dry"
+                pre_img_url = "/seeds/dryer_no.png"
+                pre_detail = 'ウエットクリーニングはできません。'
+            elif prelabel == 2:
+                name = "ironing_upto150"
+                pre_img_url = "/seeds/iron_150.png"
+                pre_detail = '150℃を限度に、アイロンが使えます。'
+            elif prelabel == 3:
+                name = "not_bleachable"
+                pre_img_url = "/seeds/not_bleachable.png"
+                pre_detail = '漂白できません。'
+
+            return render_template('index.html',name=name, img_url=img_url, probability=probability, pre_img_url=pre_img_url, pre_detail=pre_detail )
     else:
         # ターミナル及びコマンドプロンプトに出力するメッセージ
-        print("get　request")
+        print("get request")
 
     return render_template('index.html')
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+
+@app.route('/seeds/<filename>')
+def seed_file(filename):
+    return send_from_directory(app.config['SEEDS_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000)
