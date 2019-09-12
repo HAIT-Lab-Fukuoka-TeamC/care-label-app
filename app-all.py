@@ -19,8 +19,6 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 app = Flask(__name__)
 UPLOAD_FOLDER = './uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-SEEDS_FOLDER = './seeds'
-app.config['SEEDS_FOLDER'] = SEEDS_FOLDER
 app.config['SECRET_KEY'] = os.urandom(24)
 
 
@@ -72,18 +70,59 @@ def predict():
             prelabel = np.argmax(prd, axis=1)
             probability = max(prd[0])
 
-            if prelabel == 0:
-                name = "40_weak"
-                pre_img_url = "/seeds/wash_40.png"
-            elif prelabel == 1:
-                name = "donot_tumble_dry"
-                pre_img_url = "/seeds/dryer_no.png"
-            elif prelabel == 2:
-                name = "ironing_upto150"
-                pre_img_url = "/seeds/iron_150.png"
-            elif prelabel == 3:
-                name = "not_bleachable"
-                pre_img_url = "/seeds/not_bleachable.png"
+            names = ['95',
+                    '50',
+                    'hanging_dry',
+                    'not_bleachable',
+                    'wetcleaning_weak',
+                    '60',
+                    'wetcleaning_ok',
+                    'donot_drycleaning',
+                    'weetcleaning_very_weak',
+                    '30_very_weak',
+                    '40_very_weak',
+                    'ironing_upto200',
+                    'not_washable',
+                    'donot_wetcleaning',
+                    'drycleaning_F',
+                    'bleachable',
+                    'flat_dry_shade',
+                    'drycleaning_F_weak',
+                    'flat_dry_wet',
+                    'drycleaning_P_weak',
+                    'tumble_dry_upto60',
+                    'ironing_upto150',
+                    'donot_tumble_dry',
+                    '30',
+                    'hanging_dry_wet',
+                    'flat_dry_wetshade',
+                    '40_weak',
+                    'donot_ironing',
+                    'flat_dry',
+                    '60_weak',
+                    'hanging_dry_shade',
+                    'bleachable_oxygen',
+                    '30_weak',
+                    'drycleaning_P',
+                    'hand-wash',
+                    '70',
+                    'hanging_dry_wetshade',
+                    'tumble_dry_upto80',
+                    '40',
+                    '50_weak',
+                    'ironing_upto110']
+
+            # if prelabel == 0:
+            #     name = "40_weak"
+            # elif prelabel == 1:
+            #     name = "donot_tumble_dry"
+            # elif prelabel == 2:
+            #     name = "ironing_upto150"
+            # elif prelabel == 3:
+            #     name = "not_bleachable"
+
+            name = names[prelabel]
+            pre_img_url = '/seeds/' + name + '.png'
 
             return render_template('index.html',name=name, img_url=img_url, probability=probability, pre_img_url=pre_img_url )
     else:
@@ -95,10 +134,6 @@ def predict():
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
-@app.route('/seeds/<filename>')
-def seed_file(filename):
-    return send_from_directory(app.config['SEEDS_FOLDER'], filename)
 
 if __name__ == '__main__':
     app.run(debug=False, port=5000)
