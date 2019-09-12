@@ -80,9 +80,9 @@ model.add(Activation('softmax'))
 
 # コンパイル
 model.compile(loss='categorical_crossentropy',optimizer='SGD',metrics=['accuracy'])
-print(start)
+
 #訓練
-history = model.fit(X_train, y_train, epochs=10, validation_data=(X_test, y_test))
+history = model.fit(X_train, y_train, epochs=2, validation_data=(X_test, y_test))
 
 #評価 & 評価結果出力
 print(model.evaluate(X_test, y_test))
