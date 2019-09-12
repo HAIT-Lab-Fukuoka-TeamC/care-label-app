@@ -10,22 +10,47 @@ from sklearn.model_selection import train_test_split
 from PIL import Image
 import glob
 
-folder = []
-files = glob.glob("./pre-all/train-seeds/**", recursive=True)
-del files[0]
-end_list = ['.png', '.jpg', '.jpeg']
-for i, f in enumerate(files):
-    flag = 0
-    for e in end_list:
-        if e in f:
-            flag = 1
-            break
-
-    if flag == 0:
-        dir_name = f.split('/')[-1]
-        # dir_name = f.split('\\')[-1] ←windowsの場合
-        print('dir_name : ' + dir_name)
-        folder.append(dir_name)
+folder = ['95',
+        '50',
+        'hanging_dry',
+        'not_bleachable',
+        'wetcleaning_weak',
+        '60',
+        'wetcleaning_ok',
+        'donot_drycleaning',
+        'weetcleaning_very_weak',
+        '30_very_weak',
+        '40_very_weak',
+        'ironing_upto200',
+        'not_washable',
+        'donot_wetcleaning',
+        'drycleaning_F',
+        'bleachable',
+        'flat_dry_shade',
+        'drycleaning_F_weak',
+        'flat_dry_wet',
+        'drycleaning_P_weak',
+        'tumble_dry_upto60',
+        'ironing_upto150',
+        'donot_tumble_dry',
+        '30',
+        'hanging_dry_wet',
+        'flat_dry_wetshade',
+        '40_weak',
+        'donot_ironing',
+        'flat_dry',
+        '60_weak',
+        'hanging_dry_shade',
+        'bleachable_oxygen',
+        '30_weak',
+        'drycleaning_P',
+        'hand-wash',
+        '70',
+        'hanging_dry_wetshade',
+        'tumble_dry_upto80',
+        '40',
+        '50_weak',
+        'ironing_upto110']
 
 image_size = 50
 
@@ -83,16 +108,16 @@ model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy',optimizer='SGD',metrics=['accuracy'])
 
 #訓練
-history = model.fit(X_train, y_train, epochs=2, validation_data=(X_test, y_test))
+history = model.fit(X_train, y_train, epochs=5, validation_data=(X_test, y_test))
 
 #評価 & 評価結果出力
 print(model.evaluate(X_test, y_test))
 
 # モデルの保存
-open('and_all.json',"w").write(model.to_json())
+open('and.json',"w").write(model.to_json())
 
 # 学習済みの重みを保存
-model.save_weights('and_all_weight.hdf5')
+model.save_weights('and_weight.hdf5')
 
 import matplotlib.pyplot as plt
 

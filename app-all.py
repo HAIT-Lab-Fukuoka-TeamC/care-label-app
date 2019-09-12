@@ -49,10 +49,10 @@ def predict():
 
 
             # モデルの読み込み
-            model = model_from_json(open('and_all.json', 'r').read())
+            model = model_from_json(open('and.json', 'r').read())
 
             # 重みの読み込み
-            model.load_weights('and_all_weight.hdf5')
+            model.load_weights('and_weight.hdf5')
 
 
             image_size = 50
