@@ -58,12 +58,25 @@
 
         <img id="img1" style="width:300px;height:300px;" />
 
-        <div id="result">
-            {{ name }}
-            {% if img_url %}
-              <p><img src="{{ img_url }}"></p>
-            {% endif %}
-        </div>
+        {% if name %}
+            <div id="result">
+                <h2>結果</h2>
+                <div>
+                    アップロードされた画像<br>
+                    {% if img_url %}
+                      <p><img src="{{ img_url }}"></p>
+                    {% endif %}
+                </div>
+                <div>
+                    予測
+                    <h3>{{ name }}</h3>
+                    確率
+                    {{ probability }}
+                </div>
+
+
+            </div>
+        {% endif %}
     </div>
 
     <!-- Optional JavaScript -->

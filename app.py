@@ -68,25 +68,24 @@ def predict():
             prd = model.predict(X)
             # 配列の最大要素のインデックスを返しprelabelに代入します
             prelabel = np.argmax(prd, axis=1)
-            # 0の場合、犬を変数nameに代入します。
+            probability = max(prd[0])
+
+
             if prelabel == 0:
-                print(">>> 40_weak")
                 name = "40_weak"
-            # 1の場合、猫を変数nameに代入します。
             elif prelabel == 1:
-                print(">>> donot_tumble_dry")
                 name = "donot_tumble_dry"
             elif prelabel == 2:
-                print(">>> ironing_upto150")
                 name = "ironing_upto150"
             elif prelabel == 3:
-                print(">>> not_bleachable")
                 name = "not_bleachable"
 
-            return render_template('index.html',name=name, img_url=img_url)
+
+
+            return render_template('index.html',name=name, img_url=img_url, probability=probability)
     else:
         # ターミナル及びコマンドプロンプトに出力するメッセージ
-        print("get　request")
+        print("get request")
 
     return render_template('index.html')
 
