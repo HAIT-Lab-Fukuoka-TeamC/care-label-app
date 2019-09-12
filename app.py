@@ -75,17 +75,21 @@ def predict():
             if prelabel == 0:
                 name = "40_weak"
                 pre_img_url = "/seeds/wash_40.png"
+                pre_detail = '水温40℃を限度に、洗濯機で非常に弱い洗濯ができます。'
             elif prelabel == 1:
                 name = "donot_tumble_dry"
                 pre_img_url = "/seeds/dryer_no.png"
+                pre_detail = 'ウエットクリーニングはできません。'
             elif prelabel == 2:
                 name = "ironing_upto150"
                 pre_img_url = "/seeds/iron_150.png"
+                pre_detail = '150℃を限度に、アイロンが使えます。'
             elif prelabel == 3:
                 name = "not_bleachable"
                 pre_img_url = "/seeds/not_bleachable.png"
+                pre_detail = '漂白できません。'
 
-            return render_template('index.html',name=name, img_url=img_url, probability=probability, pre_img_url=pre_img_url )
+            return render_template('index.html',name=name, img_url=img_url, probability=probability, pre_img_url=pre_img_url, pre_detail=pre_detail )
     else:
         # ターミナル及びコマンドプロンプトに出力するメッセージ
         print("get request")
