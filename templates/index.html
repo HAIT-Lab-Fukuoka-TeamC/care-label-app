@@ -58,7 +58,7 @@
 
         <img id="img1" style="width:300px;height:300px;" />
 
-        {% if name %}
+        {% if img_url %}
             <div id="result">
                 <h2>結果</h2>
                 <div>
@@ -66,11 +66,27 @@
                       <p><img src="{{ img_url }}"></p>
                 </div>
                 <div>
-                    予測
-                    <p><img src="{{ pre_img_url }}"></img><p>
-                    <h3>{{ pre_detail }}</h3>
+                    一番予想
+                    <p><img src="{{ pre1_img_url }}"></img><p>
+                    <h3>{{ pre1_detail }}</h3>
                     確率
-                    {{ probability }}
+                    {{ pre1_pro }}
+                </div>
+                <hr>
+                <div>
+                    二番予想
+                    <p><img src="{{ pre2_img_url }}"></img><p>
+                    <h3>{{ pre2_detail }}</h3>
+                    確率
+                    {{ pre2_pro }}
+                </div>
+                <hr>
+                <div>
+                    三番予想
+                    <p><img src="{{ pre3_img_url }}"></img><p>
+                    <h3>{{ pre3_detail }}</h3>
+                    確率
+                    {{ pre3_pro }}
                 </div>
 
 

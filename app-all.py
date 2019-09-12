@@ -160,11 +160,25 @@ def predict():
                    '水温50℃を限度に、洗濯機で弱い洗濯ができます。',
                    '110℃を限度に、スチームなしでアイロンが使えます。']
 
-            name = names[prelabel[0]]
-            pre_img_url = '/seeds/' + name + '.png'
-            pre_detail = details[prelabel[0]]
 
-            return render_template('index.html',name=name, img_url=img_url, probability=probability, pre_img_url=pre_img_url, pre_detail=pre_detail )
+            name1 = names[other_labels[0]]
+            pre1_img_url = '/seeds/' + name1 + '.png'
+            pre1_detail = details[other_labels[0]]
+            pre1_pro = str(round(other_pros[0] * 100)) + '%'
+
+
+            name2 = names[other_labels[1]]
+            pre2_img_url = '/seeds/' + name2 + '.png'
+            pre2_detail = details[other_labels[1]]
+            pre2_pro = str(round(other_pros[1] * 100)) + '%'
+
+
+            name3 = names[other_labels[2]]
+            pre3_img_url = '/seeds/' + name3 + '.png'
+            pre3_detail = details[other_labels[2]]
+            pre3_pro = str(round(other_pros[2] * 100)) + '%'
+
+            return render_template('index.html', img_url=img_url, pre1_img_url=pre1_img_url, pre1_detail=pre1_detail, pre1_pro=pre1_pro, pre2_img_url=pre2_img_url, pre2_detail=pre2_detail, pre2_pro=pre2_pro, pre3_img_url=pre3_img_url, pre3_detail=pre3_detail, pre3_pro=pre3_pro)
     else:
         # ターミナル及びコマンドプロンプトに出力するメッセージ
         print("get request")
