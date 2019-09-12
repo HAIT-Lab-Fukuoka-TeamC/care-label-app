@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, jsonify, render_template
+from flask import Flask, redirect, request, jsonify, render_template, url_for, send_from_directory, session
 from keras import models
 from PIL import Image
 from keras.models import load_model
@@ -11,11 +11,17 @@ import sys, os, io
 import glob
 import tensorflow as tf
 from keras.models import model_from_json
+from werkzeug import secure_filename
 
 # IOError: image file is truncated (0 bytes not processed)回避のため
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 app = Flask(__name__)
+UPLOAD_FOLDER = './uploads'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['SECRET_KEY'] = os.urandom(24)
+
+
 CORS(app)
 
 # http://127.0.0.1:5000/にアクセスしたら、一番最初に読み込まれるページ
@@ -32,6 +38,12 @@ def predict():
             print("ファイルがありません")
         else:
             img = request.files["file"]
+            filename = secure_filename(img.filename)
+            img.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            img_url = '/uploads/' + filename
+
+
+
             graph = tf.get_default_graph()
             backend.clear_session() # 2回以上連続してpredictするために必要な処理
 
@@ -73,7 +85,7 @@ def predict():
                 print(">>> not_bleachable")
                 name = "not_bleachable"
 
-            return render_template('index.html',name=name)
+            return render_template('index.html',name=name, img_url=img_url)
     else:
         # ターミナル及びコマンドプロンプトに出力するメッセージ
         print("get　request")
