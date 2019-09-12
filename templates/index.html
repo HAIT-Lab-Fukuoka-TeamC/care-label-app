@@ -63,12 +63,11 @@
                 <h2>結果</h2>
                 <div>
                     アップロードされた画像<br>
-                    {% if img_url %}
                       <p><img src="{{ img_url }}"></p>
-                    {% endif %}
                 </div>
                 <div>
                     予測
+                    <p><img src="{{ pre_img_url }}"></img><p>
                     <h3>{{ name }}</h3>
                     確率
                     {{ probability }}
