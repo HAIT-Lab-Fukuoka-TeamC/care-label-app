@@ -20,28 +20,6 @@
         }
     </style>
     <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script>
-        $(function(){
-          $('#file').change(function(e){
-            var file = e.target.files[0];
-            var reader = new FileReader();
-
-            if(file.type.indexOf("image") < 0){
-              alert("画像ファイルを指定してください。");
-              return false;
-            }
-
-            reader.onload = (function(file){
-              return function(e){
-                $("#img1").attr("src", e.target.result);
-                $("#img1").attr("title", file.name);
-              };
-            })(file);
-            reader.readAsDataURL(file);
-
-          });
-        });
-    </script>
 </head>
 <body style="background-color: #e4f9f5;">
     <nav class="navbar navbar-light" style="background-color: #30e3ca;">
@@ -140,6 +118,28 @@
             numFiles = input.get(0).files ? input.get(0).files.length : 1,
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
             input.parent().parent().next(':text').val(label);
+        });
+    </script>
+    <script>
+        $(function(){
+          $('#file').change(function(e){
+            var file = e.target.files[0];
+            var reader = new FileReader();
+
+            if(file.type.indexOf("image") < 0){
+              alert("画像ファイルを指定してください。");
+              return false;
+            }
+
+            reader.onload = (function(file){
+              return function(e){
+                $("#img1").attr("src", e.target.result);
+                $("#img1").attr("title", file.name);
+              };
+            })(file);
+            reader.readAsDataURL(file);
+
+          });
         });
     </script>
 </body>
