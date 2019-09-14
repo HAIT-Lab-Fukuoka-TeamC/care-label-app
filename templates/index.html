@@ -23,17 +23,14 @@
     <script>
         $(function(){
           $('#file').change(function(e){
-            //ファイルオブジェクトを取得する
             var file = e.target.files[0];
             var reader = new FileReader();
 
-            //画像でない場合は処理終了
             if(file.type.indexOf("image") < 0){
               alert("画像ファイルを指定してください。");
               return false;
             }
 
-            //アップロードした画像を設定する
             reader.onload = (function(file){
               return function(e){
                 $("#img1").attr("src", e.target.result);
@@ -46,58 +43,104 @@
         });
     </script>
 </head>
-<body>
+<body style="background-color: #e4f9f5;">
+    <nav class="navbar navbar-light" style="background-color: #30e3ca;">
+        <div class="container">
+            <a class="navbar-brand" href="/" style="font-size: 4vh;">洗濯表示しらべくん</a>
+        </div>
+    </nav>
 
     <div class="container">
+        <br>
+        <p style="font-size: 2vh;">
+            <b style="font-size: 3vh;">その洗濯方法、間違っているかも！</b><br>
+            洗濯表示の意味を知ることで、正しい洗濯を行うことが出来ます。<br>
+            このWEBアプリ「洗濯表示しらべくん」は、アップロードされた画像から洗濯表示を予測し意味を表示します。<br>
+        </p>
 
-        <h1>洗濯表示しらべくん</h1>
+        <hr>
+
         <form id="uploadForm"  action="/predict" method="POST"  enctype="multipart/form-data">
-            <input type="file" name="file" id="file"><br>
-            <input id="btn1" type="submit" accept="image/*;device=camera" name="picfile" value="アップロード">
+            画像をアップロードしてください（1:1推奨）<br>
+            <div class="input-group">
+                <label class="input-group-btn">
+                    <span class="btn btn-primary">
+                        ファイル選択<input type="file" name="file" id="file" style="display:none">
+                    </span>
+                </label>
+                <input type="text" class="form-control" readonly="">
+            </div>
+            <img id="img1" style="width:30%;" /><br>
+            <input id="btn1" type="submit" accept="image/*;device=camera" name="picfile" value="アップロード" class="btn btn-lg btn-primary">
         </form>
 
-        <img id="img1" style="width:300px;height:300px;" />
+        <p style="color: {{color}};"> {{massege}} </p>
+        <hr>
 
-        {% if img_url %}
+        {% if img %}
             <div id="result">
-                <h2>結果</h2>
                 <div>
+                  <h2>予測結果</h2>
                     アップロードされた画像<br>
-                      <p><img src="{{ img_url }}"></p>
+                    <img src={{img}} alt="今回の画像" title="今回の画像" style="width: 30%;">
                 </div>
+                <hr>
                 <div>
-                    一番予想
+                    <h4>1.</h4>
+                    <p>{{ pre1_pro }}</p>
                     <p><img src="{{ pre1_img_url }}"></img><p>
                     <h3>{{ pre1_detail }}</h3>
-                    確率
-                    {{ pre1_pro }}
+
                 </div>
                 <hr>
                 <div>
-                    二番予想
+                    <h5>2.</h5>
+                    <p>{{ pre2_pro }}</p>
                     <p><img src="{{ pre2_img_url }}"></img><p>
                     <h3>{{ pre2_detail }}</h3>
-                    確率
-                    {{ pre2_pro }}
                 </div>
                 <hr>
                 <div>
-                    三番予想
+                    <h5>3.</h5>
+                    <p>{{ pre3_pro }}</p>
                     <p><img src="{{ pre3_img_url }}"></img><p>
                     <h3>{{ pre3_detail }}</h3>
-                    確率
-                    {{ pre3_pro }}
                 </div>
+            </div>
 
-
+        {% else %}
+            <div>
+                <h3>使い方</h3>
+                <h4>1. 洗濯タグの画像を撮影する</h4>
+                <img src="/uploads/sample-tag.jpg" style="width: 40%;"></img>
+                <br><br>
+                <h4>2. 対象の洗濯表示をトリミングする（1:1）</h4>
+                <img src="/uploads/sample-mark.jpg" style="width: 30%;"></img>
+                <br><br>
+                <h4>3. アップロードする</h4>
+                <img src="/uploads/sample-upload.png" style="width: 40%;"></img>
+                <br><br>
+                <h4>4. 完了</h4>
+                <img src="/uploads/sample-result.png" style="width: 40%;"></img>
             </div>
         {% endif %}
     </div>
+    <footer class="footer">
+        <p class="text-muted text-center" style="font-size: 2vh;">&copy; 2019 <a href="https://github.com/rkdora" target="_blank">rkdora</a> <a href="https://github.com/Daigo-Inoue" target="_blank">Daigo-Inoue</a> <a href="https://github.com/Launcha10" target="_blank">Launcha10</a>, v1.0 <a href="https://github.com/HAIT-Lab-Fukuoka-TeamC/care-label-app" target="_blank">GitHub</a></p>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $(document).on('change', ':file', function() {
+            var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+            input.parent().parent().next(':text').val(label);
+        });
+    </script>
 </body>
 </html>
