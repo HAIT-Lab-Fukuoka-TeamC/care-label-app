@@ -108,10 +108,12 @@ model.add(Activation('softmax'))
 model.compile(loss='categorical_crossentropy',optimizer='SGD',metrics=['accuracy'])
 
 #訓練
-history = model.fit(X_train, y_train, epochs=5, validation_data=(X_test, y_test))
+history = model.fit(X_train, y_train, epochs=3, validation_data=(X_test, y_test))
 
 #評価 & 評価結果出力
 print(model.evaluate(X_test, y_test))
+
+# [0.011538714563043074, 0.9979025710419486]
 
 # モデルの保存
 open('and_1.json',"w").write(model.to_json())
@@ -144,3 +146,7 @@ def plot_history(history):
     plt.savefig("model_loss.png")
 
 plot_history(history)
+
+import pickle
+with open("history.pickle", mode='wb') as f:
+    pickle.dump(history.history, f)
