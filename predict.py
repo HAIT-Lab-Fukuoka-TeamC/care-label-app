@@ -114,10 +114,10 @@ history = model.fit(X_train, y_train, epochs=5, validation_data=(X_test, y_test)
 print(model.evaluate(X_test, y_test))
 
 # モデルの保存
-open('and.json',"w").write(model.to_json())
+open('and_1.json',"w").write(model.to_json())
 
 # 学習済みの重みを保存
-model.save_weights('and_weight.hdf5')
+model.save_weights('and_1_weight.hdf5')
 
 import matplotlib.pyplot as plt
 
@@ -130,7 +130,8 @@ def plot_history(history):
     plt.xlabel('epoch')
     plt.ylabel('accuracy')
     plt.legend(loc="lower right")
-    plt.show()
+    # plt.show()
+    plt.savefig("model_accuracy.png")
 
     # 損失の履歴をプロット
     plt.plot(history.history['loss'],"o-",label="loss",)
@@ -139,6 +140,7 @@ def plot_history(history):
     plt.xlabel('epoch')
     plt.ylabel('loss')
     plt.legend(loc='lower right')
-    plt.show()
+    # plt.show()
+    plt.savefig("model_loss.png")
 
 plot_history(history)
