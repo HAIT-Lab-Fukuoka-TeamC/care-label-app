@@ -57,10 +57,10 @@ def predict():
                 backend.clear_session() # 2回以上連続してpredictするために必要な処理
 
                 # モデルの読み込み
-                model = model_from_json(open('and.json', 'r').read())
+                model = model_from_json(open('and_1.json', 'r').read())
 
                 # 重みの読み込み
-                model.load_weights('and_weight.hdf5')
+                model.load_weights('and_1_weight.hdf5')
 
 
                 image_size = 50
@@ -79,7 +79,7 @@ def predict():
                 other_pros = [prd[0][other_labels[0]], prd[0][other_labels[1]], prd[0][other_labels[2]]]
 
                 details = [
-                       '水温90℃を限度に、洗濯機で洗えます。',
+                       '水温95℃を限度に、洗濯機で洗えます。',
                        '水温50℃を限度に、洗濯機で洗えます。',
                        'ハンガー等を使って、つり干しします。',
                        '漂白できません。',
@@ -117,7 +117,7 @@ def predict():
                        '水温70℃を限度に、洗濯機で洗えます。',
                        '日陰で、脱水せずぬれたままつり干しします。',
                        '排気温度80℃を上限に、タンブル乾燥できます。',
-                       '水温30℃を限度に、洗濯機で洗えます',
+                       '水温40℃を限度に、洗濯機で洗えます',
                        '水温50℃を限度に、洗濯機で弱い洗濯ができます。',
                        '110℃を限度に、スチームなしでアイロンが使えます。']
 
